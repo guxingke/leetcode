@@ -7,27 +7,25 @@ class Solution {
   public String makeLargestSpecial(String src) {
     List<String> mem = new ArrayList<>();
     int temp = 0;
-    int l = 1;
+    int l = 0;
     int len = src.length();
-    if (len == 2) {
-      return src;
-    }
-    for (int i = 1; i < len - 1; i++) {
+    for (int i = 0; i < len; i++) {
       char c = src.charAt(i);
-      if (c == '1') {
-        temp++;
-      } else {
+      if (c == '0') {
         temp--;
+      } else {
+        temp++;
       }
+
       if (temp == 0) {
-        String sub = src.substring(l, i + 1);
-        mem.add(makeLargestSpecial(sub));
+        String sub = src.substring(l + 1, i);
+        mem.add("1" + makeLargestSpecial(sub) + "0");
         l = i + 1;
       }
     }
 
     mem.sort(Comparator.reverseOrder());
-    return "1" + String.join("", mem) + "0";
+    return String.join("", mem);
   }
 }
 
